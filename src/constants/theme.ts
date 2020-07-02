@@ -38,10 +38,11 @@ export const THEME = {
     BODY: "linear-gradient(237.99deg, #70D6F3 0%, #FEF4D3 100%)",
   },
   BOX_SHADOWS: {
-    LANDING_BODY: "0px 0px 50px rgba(0, 0, 0, 0.1)",
-    BUTTON: "0px 5px 20px rgba(0, 0, 0, 0.15)",
-    DROPDOWN: "0px 3px 10px rgba(0, 0, 0, 0.15)",
-    TAG: "0px 4px 5px rgba(0, 0, 0, 0.1)",
+    ASIDE: "0 0 20px rgba(0, 0, 0, 0.1)",
+    BUTTON: "0 5px 20px rgba(0, 0, 0, 0.15)",
+    DROPDOWN: "0 3px 10px rgba(0, 0, 0, 0.15)",
+    LANDING_BODY: "0 0 50px rgba(0, 0, 0, 0.1)",
+    TAG: "0 4px 5px rgba(0, 0, 0, 0.1)",
   },
   TRANSITION: ".2s ease",
 } as const

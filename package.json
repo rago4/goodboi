@@ -41,6 +41,7 @@
     "eslint-plugin-react": "^7.20.0",
     "gatsby-plugin-react-helmet": "^3.3.4",
     "gatsby-plugin-styled-components": "^3.3.4",
+    "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
@@ -53,5 +54,11 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && yarn type-check",
+      "pre-push": "yarn test"
+    }
   }
 }

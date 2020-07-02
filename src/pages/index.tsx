@@ -1,5 +1,5 @@
 import React from "react"
-import { Body, Button, Heading, Layout, NavLink, Text } from "../components"
+import { Body, ButtonLink, Heading, Layout, NavLink, Text } from "../components"
 import { Container, Content, Image, Navigation, styles } from "../pages-styles"
 import { ROUTES } from "../constants"
 import DogImage from "../../static/dog.png"
@@ -38,7 +38,9 @@ const Index: React.FC = () => {
               Massa velit pretium purus, a sodales diam enim consequat arcu.
               Nullam id metus bibendum, porta justo quis, tempus purus.
             </Text>
-            <Button css={styles.cta}>Get started</Button>
+            <ButtonLink css={styles.cta} to={ADOPTION}>
+              Get started
+            </ButtonLink>
           </Content>
         </Container>
       </Body>

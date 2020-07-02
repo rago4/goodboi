@@ -4,6 +4,7 @@ import {
   UIPresentation,
   Body,
   Button,
+  ButtonLink,
   Heading,
   NavLink,
   Select,
@@ -25,12 +26,19 @@ const Ui: React.FC = () => {
       </UIPresentation>
 
       <UIPresentation
-        name="Heading"
-        code={`<Heading wrapper="h1 | h2 | h3">...</Heading>`}
+        name="ButtonLink"
+        code={`<ButtonLink to="#">...</ButtonLink>`}
       >
-        <Heading wrapper="h1">Heading 1</Heading>
-        <Heading wrapper="h2">Heading 2</Heading>
-        <Heading wrapper="h3">Heading 3</Heading>
+        <ButtonLink to="#">Click me</ButtonLink>
+      </UIPresentation>
+
+      <UIPresentation
+        name="Heading"
+        code={`<Heading as="h1 | h2 | h3">...</Heading>`}
+      >
+        <Heading>Heading 1</Heading>
+        <Heading as="h2">Heading 2</Heading>
+        <Heading as="h3">Heading 3</Heading>
       </UIPresentation>
 
       <UIPresentation name="NavLink" code="<NavLink>...</NavLink>">

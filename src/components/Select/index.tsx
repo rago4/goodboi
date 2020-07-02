@@ -1,4 +1,5 @@
 import React from "react"
+import { CSSProp } from "styled-components"
 import { Container, Label, Input, Dropdown, Option } from "./styles"
 import { useOnClickOutside } from "../../utils"
 
@@ -6,8 +7,9 @@ interface Props {
   label: string
   placeholder: string
   items: string[]
-  selected?: string
   onSelect(item: string): void
+  selected?: string
+  styles?: CSSProp
 }
 
 export const Select: React.FC<Props> = ({
@@ -16,6 +18,7 @@ export const Select: React.FC<Props> = ({
   items,
   selected = "",
   onSelect,
+  styles = {},
 }) => {
   const [isOpen, setOpen] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -27,7 +30,7 @@ export const Select: React.FC<Props> = ({
   }
 
   return (
-    <Container isOpen={isOpen} ref={containerRef}>
+    <Container isOpen={isOpen} ref={containerRef} css={styles}>
       <Label>{label}</Label>
       <Input
         readOnly

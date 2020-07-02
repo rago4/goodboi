@@ -1,5 +1,5 @@
 export { Body } from "./Body"
-export { Button } from "./Button"
+export { Button, ButtonLink } from "./Button"
 export { Heading } from "./Heading"
 export { Layout } from "./Layout"
 export { NavLink } from "./NavLink"
