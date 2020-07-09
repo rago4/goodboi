@@ -53,6 +53,7 @@ export const Dropdown = styled.ul`
   position: absolute;
   top: 100%;
   width: 100%;
+  z-index: 1;
 `
 
 export const Option = styled.button<{ isSelected: boolean }>`

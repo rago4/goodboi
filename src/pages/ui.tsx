@@ -5,6 +5,7 @@ import {
   Body,
   Button,
   ButtonLink,
+  DogTile,
   Heading,
   NavLink,
   Select,
@@ -30,6 +31,10 @@ const Ui: React.FC = () => {
         code={`<ButtonLink to="#">...</ButtonLink>`}
       >
         <ButtonLink to="#">Click me</ButtonLink>
+      </UIPresentation>
+
+      <UIPresentation name="DogTile" code={`<DogTile {...props} />`}>
+        <DogTile />
       </UIPresentation>
 
       <UIPresentation

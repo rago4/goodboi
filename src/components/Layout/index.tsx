@@ -12,7 +12,7 @@ export const Layout: React.FC = ({ children }) => {
           href="https://fonts.googleapis.com/css2?family=PT+Serif&family=Poppins:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <title>goodboi - Dog Adoption</title>
+        <title>goodboi</title>
       </Helmet>
       <ThemeProvider theme={THEME}>
         <ResetStyles />

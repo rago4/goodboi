@@ -33,3 +33,14 @@ export const ButtonLink = styled(Link)`
   text-decoration: none;
   display: inline-block;
 `
+
+export const TextButtonLink = styled(Link)`
+  ${buttonStyles}
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  color: ${({ theme }) => theme.PALETTE.MALIBU};
+  display: inline-block;
+  padding: 0;
+  text-decoration: none;
+`

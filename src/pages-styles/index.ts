@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components"
+import LineInMotion from "../../static/line-in-motion.svg"
 
 // COMPONENTS
 export const Container = styled.main`
@@ -10,6 +11,24 @@ export const Container = styled.main`
   grid-column-gap: 20px;
   grid-template-columns: repeat(14, 1fr);
   height: 100%;
+  position: relative;
+
+  &::before {
+    background-color: ${({ theme }) => theme.PALETTE.CREAM_BRULEE};
+    bottom: 0;
+    content: "";
+    display: none;
+    height: 275px;
+    left: 0;
+    mask: url(${LineInMotion}) no-repeat center;
+    mask-size: contain;
+    position: absolute;
+    width: 275px;
+
+    @media screen and (min-width: ${({ theme }) => theme.BREAKPOINTS.MEDIUM}) {
+      display: block;
+    }
+  }
 `
 
 export const Navigation = styled.nav`
@@ -43,6 +62,7 @@ export const Image = styled.img`
   object-fit: contain;
   width: 100%;
   align-self: flex-end;
+  z-index: 1;
 
   @media screen and (min-width: ${({ theme }) => theme.BREAKPOINTS.MEDIUM}) {
     display: block;
@@ -53,6 +73,7 @@ export const Content = styled.div`
   align-self: center;
   grid-column: 2/-2;
   padding-bottom: 40px;
+  z-index: 1;
 
   @media screen and (min-width: ${({ theme }) => theme.BREAKPOINTS.MEDIUM}) {
     grid-column: 6/-2;
@@ -62,7 +83,11 @@ export const Content = styled.div`
 // STYLES
 export const styles = {
   body: css`
-    padding: 50px 0;
+    padding: 25px 0;
+
+    @media screen and (min-width: ${({ theme }) => theme.BREAKPOINTS.SMALL}) {
+      padding: 50px 0;
+    }
   `,
   navLink: css`
     margin-right: 30px;
