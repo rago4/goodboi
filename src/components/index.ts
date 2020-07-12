@@ -1,6 +1,7 @@
 export { Body } from "./Body"
 export { Button, ButtonLink, TextButtonLink } from "./Button"
 export { DogTile } from "./DogTile"
+export { Gallery } from "./Gallery"
 export { Heading } from "./Heading"
 export { Layout } from "./Layout"
 export { NavLink } from "./NavLink"

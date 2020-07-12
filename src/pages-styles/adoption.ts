@@ -18,6 +18,7 @@ export const Sidebar = styled.aside<{ isOpen: boolean }>`
   transition: left ${({ theme }) => theme.TRANSITION};
   width: calc(100% - ${TOGGLER_DIMENSIONS}px);
   overflow-y: auto;
+  z-index: 2;
 
   @media screen and (min-width: ${({ theme }) => theme.BREAKPOINTS.SMALL}) {
     width: ${SIDEBAR_WIDTH}px;

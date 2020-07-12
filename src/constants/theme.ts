@@ -1,6 +1,7 @@
 export const THEME = {
   PALETTE: {
     WHITE: "#FFFFFF",
+    BLACK: "#000000",
     MINE_SHAFT: "#222222",
     MALIBU: "#70D6F3",
     FOAM: "#F0FAFD",
