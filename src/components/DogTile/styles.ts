@@ -71,7 +71,7 @@ export const Image = styled.img`
   }
 `
 
-export const PersonalityTrails = styled.div`
+export const PersonalityTraits = styled.div`
   margin: 5px 0 10px -7px;
 
   @media screen and (min-width: ${({ theme }) => theme.BREAKPOINTS.MEDIUM}) {

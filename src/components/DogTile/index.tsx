@@ -9,50 +9,78 @@ import {
   Container,
   Details,
   Image,
-  PersonalityTrails,
+  PersonalityTraits,
   Top,
   styles as s,
 } from "./styles"
-import { THEME } from "../../constants"
+import {
+  ACTIVITY,
+  ACTIVITY_LABELS,
+  PLACE,
+  PLACE_LABELS,
+  ROUTES,
+  SIZE,
+  SIZE_LABELS,
+  THEME,
+} from "../../constants"
+import { Values } from "../../utils"
 
 interface Props {
   styles?: CSSProp
+  id: number
+  avatar: string
+  name: string
+  months: number
+  traits: {
+    size: Values<typeof SIZE>
+    place: Values<typeof PLACE>
+    activity: Values<typeof ACTIVITY>
+  }
+  description: string
 }
 
+const { SINGLE_DOG } = ROUTES
 const {
   PALETTE: { MALIBU, PINK_SALMON },
 } = THEME
 
-export const DogTile: React.FC<Props> = ({ styles = {} }) => {
+export const DogTile: React.FC<Props> = ({
+  styles = {},
+  id,
+  avatar,
+  name,
+  months,
+  traits,
+  description,
+}) => {
+  const age =
+    months <= 12
+      ? `${months} month/s old`
+      : `${Math.round(months / 12)} year/s old`
+  const excerpt = `${description.split(" ").slice(0, 50).join(" ")}...`
+  const route = `${SINGLE_DOG}/${id}`
+
   return (
     <Container css={styles}>
-      <Image src="https://placehold.it/300" alt="Dog name" />
+      <Image src={avatar} alt={name} />
       <div>
         <Top>
           <Details>
             <Heading as="h2" css={s.name}>
-              George
+              {name}
             </Heading>
-            <Age>4 years old</Age>
+            <Age>{age}</Age>
           </Details>
-          <PersonalityTrails>
-            <Tag css={s.tag} background={MALIBU}>
-              Medium
-            </Tag>
-            <Tag css={s.tag}>Flat</Tag>
+          <PersonalityTraits>
+            <Tag background={MALIBU}>{SIZE_LABELS[traits.size]}</Tag>
+            <Tag css={s.tag}>{PLACE_LABELS[traits.place]}</Tag>
             <Tag css={s.tag} background={PINK_SALMON}>
-              Active
+              {ACTIVITY_LABELS[traits.activity]}
             </Tag>
-          </PersonalityTrails>
+          </PersonalityTraits>
         </Top>
-        <Text css={s.description}>
-          Vivamus in justo dictum, gravida arcu ut, lacinia risus. Etiam vitae
-          accumsan felis, eget consectetur eros. Ut pellentesque nulla vitae
-          lorem volutpat dictum. Donec eleifend nisi ut lacinia dictum. Nunc
-          viverra, nisl lorem ipsum dolor sit amet donec eleifend nisi ut
-          lacinia dictum...
-        </Text>
-        <TextButtonLink to="#">Read more</TextButtonLink>
+        <Text css={s.description}>{excerpt}</Text>
+        <TextButtonLink to={route}>Read more</TextButtonLink>
       </div>
     </Container>
   )

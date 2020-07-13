@@ -102,6 +102,9 @@ export const styles = {
     margin-top: 30px;
     width: 100%;
   `,
+  noData: css`
+    font-size: ${({ theme }) => theme.FONT_SIZES.LARGE};
+  `,
   dogTile: css`
     margin-bottom: 20px;
 
