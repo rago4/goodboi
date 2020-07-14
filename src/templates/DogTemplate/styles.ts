@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import LineInMotion from "../../static/line-in-motion.svg"
+import LineInMotion from "../../../static/line-in-motion.svg"
 
 export const Container = styled.main`
   background-color: ${({ theme }) => theme.PALETTE.WHITE};

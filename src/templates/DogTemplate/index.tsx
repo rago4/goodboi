@@ -1,4 +1,5 @@
 import React from "react"
+import { graphql, PageProps } from "gatsby"
 import {
   Body,
   Button,
@@ -8,7 +9,7 @@ import {
   NavLink,
   Tag,
   Text,
-} from "../components"
+} from "../../components"
 import {
   Age,
   Container,
@@ -19,21 +20,28 @@ import {
   RightColumn,
   Section,
   styles as s,
-} from "../pages-styles/dog-template"
-import { ROUTES, THEME } from "../constants"
+} from "./styles"
+import { ROUTES, THEME } from "../../constants"
+
+interface Data {
+  strapiDogs: {
+    id: string
+  }
+}
 
 const { ADOPTION } = ROUTES
 const {
   PALETTE: { MALIBU, PINK_SALMON },
 } = THEME
 
-const DogTemplate: React.FC = () => {
+const DogTemplate: React.FC<PageProps<Data>> = ({ data }) => {
   const images = [
     { src: "https://placehold.it/300", alt: "" },
     { src: "https://placehold.it/300", alt: "" },
     { src: "https://placehold.it/300", alt: "" },
     { src: "https://placehold.it/300", alt: "" },
   ]
+  console.log(data)
 
   return (
     <Layout>
@@ -96,5 +104,13 @@ const DogTemplate: React.FC = () => {
     </Layout>
   )
 }
+
+export const query = graphql`
+  query DogTemplate($id: Int!) {
+    strapiDogs(strapiId: { eq: $id }) {
+      id
+    }
+  }
+`
 
 export default DogTemplate

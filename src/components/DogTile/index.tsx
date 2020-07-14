@@ -7,6 +7,7 @@ import { Text } from "../Text"
 import {
   Age,
   Container,
+  Content,
   Details,
   Image,
   PersonalityTraits,
@@ -25,6 +26,8 @@ import {
 } from "../../constants"
 import { Values } from "../../utils"
 
+const { ADOPTION } = ROUTES
+
 interface Props {
   styles?: CSSProp
   id: number
@@ -39,7 +42,6 @@ interface Props {
   description: string
 }
 
-const { SINGLE_DOG } = ROUTES
 const {
   PALETTE: { MALIBU, PINK_SALMON },
 } = THEME
@@ -58,12 +60,11 @@ export const DogTile: React.FC<Props> = ({
       ? `${months} month/s old`
       : `${Math.round(months / 12)} year/s old`
   const excerpt = `${description.split(" ").slice(0, 50).join(" ")}...`
-  const route = `${SINGLE_DOG}/${id}`
 
   return (
     <Container css={styles}>
       <Image src={avatar} alt={name} />
-      <div>
+      <Content>
         <Top>
           <Details>
             <Heading as="h2" css={s.name}>
@@ -80,8 +81,8 @@ export const DogTile: React.FC<Props> = ({
           </PersonalityTraits>
         </Top>
         <Text css={s.description}>{excerpt}</Text>
-        <TextButtonLink to={route}>Read more</TextButtonLink>
-      </div>
+        <TextButtonLink to={`${ADOPTION}/${id}`}>Read more</TextButtonLink>
+      </Content>
     </Container>
   )
 }

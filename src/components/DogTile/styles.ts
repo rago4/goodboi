@@ -78,6 +78,10 @@ export const PersonalityTraits = styled.div`
   }
 `
 
+export const Content = styled.div`
+  width: 100%;
+`
+
 export const Top = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.BREAKPOINTS.MEDIUM}) {
     align-items: center;
