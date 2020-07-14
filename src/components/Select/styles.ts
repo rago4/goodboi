@@ -43,6 +43,10 @@ export const Input = styled.input<{ isOpen: boolean }>`
   outline: 0;
   padding: 14px 20px;
   width: 100%;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.PALETTE.BLACK}75;
+  }
 `
 
 export const Dropdown = styled.ul`
@@ -56,11 +60,15 @@ export const Dropdown = styled.ul`
   z-index: 1;
 `
 
-export const Option = styled.button<{ isSelected: boolean }>`
+export const Option = styled.button<{
+  isSelected?: boolean
+  isEmpty?: boolean
+}>`
   border: 0;
-  background-color: ${({ theme, isSelected }) =>
+  background-color: ${({ theme, isSelected = false }) =>
     isSelected ? theme.PALETTE.FOAM : theme.PALETTE.WHITE};
-  color: ${({ theme }) => theme.PALETTE.MINE_SHAFT};
+  color: ${({ theme, isEmpty = false }) =>
+    isEmpty ? `${theme.PALETTE.BLACK}75` : theme.PALETTE.MINE_SHAFT};
   cursor: pointer;
   font-family: ${({ theme }) => theme.FONTS.POPPINS};
   font-size: ${({ theme }) => theme.FONT_SIZES.NORMAL};

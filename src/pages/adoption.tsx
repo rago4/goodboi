@@ -1,10 +1,9 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
-// import Img from "gatsby-image"
 import { Body, Button, DogTile, Heading, Select, Layout } from "../components"
 import { List, Toggler, Sidebar, styles as s } from "../pages-styles/adoption"
 import { ACTIVITY, PLACE, SIZE } from "../constants"
-import { Values } from "../utils"
+import { getKey, Values } from "../utils"
 
 interface Dog {
   node: {
@@ -33,13 +32,27 @@ interface Data {
 }
 
 const Adoption: React.FC<PageProps<Data>> = ({ data }) => {
+  const {
+    allStrapiDogs: { edges },
+  } = data
+
+  const [currentData, setCurrentData] = React.useState<Dog[]>(edges)
   const [isSidebarOpen, setSidebarOpen] = React.useState(false)
   const [size, setSize] = React.useState("")
   const [place, setPlace] = React.useState("")
   const [activity, setActivity] = React.useState("")
-  const {
-    allStrapiDogs: { edges: dogs },
-  } = data
+
+  const handleFiltersSubmit = () => {
+    const filtered = edges.filter(({ node }) => {
+      return [
+        !size.length || getKey(size) === node.size,
+        !place.length || getKey(place) === node.place,
+        !activity.length || getKey(activity) === node.activity,
+      ].reduce((prev, curr) => prev && curr, true)
+    })
+
+    setCurrentData(filtered)
+  }
 
   return (
     <Layout>
@@ -74,16 +87,18 @@ const Adoption: React.FC<PageProps<Data>> = ({ data }) => {
             onSelect={value => setActivity(value)}
             selected={activity}
           />
-          <Button css={s.submit}>Submit</Button>
+          <Button css={s.submit} onClick={handleFiltersSubmit}>
+            Submit
+          </Button>
         </Sidebar>
 
         <List>
-          {dogs.length === 0 ? (
+          {currentData.length === 0 ? (
             <Heading as="span" css={s.noData}>
               No matching items found
             </Heading>
           ) : (
-            dogs.map(
+            currentData.map(
               ({
                 node: {
                   id,

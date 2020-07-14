@@ -27,8 +27,7 @@ export const Container = styled.div`
     mask-size: contain;
     position: absolute;
     width: 160px;
-    top: calc(50% + 30px);
-    transform: translateY(-50%);
+    top: 60px;
 
     @media screen and (min-width: ${({ theme }) => theme.BREAKPOINTS.SMALL}) {
       display: block;

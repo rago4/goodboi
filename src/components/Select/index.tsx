@@ -41,6 +41,11 @@ export const Select: React.FC<Props> = ({
       />
       {isOpen && (
         <Dropdown>
+          <li>
+            <Option onClick={() => handleSelect("")} isEmpty>
+              Select
+            </Option>
+          </li>
           {items.map(item => (
             <li key={item}>
               <Option
