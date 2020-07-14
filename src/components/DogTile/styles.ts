@@ -94,9 +94,6 @@ export const styles = {
   name: css`
     font-size: ${({ theme }) => theme.FONT_SIZES.XLARGE};
   `,
-  tag: css`
-    margin-left: 7px;
-  `,
   description: css`
     margin: 3px 0 15px;
   `,

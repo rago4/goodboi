@@ -2,8 +2,8 @@ import React from "react"
 import { CSSProp } from "styled-components"
 import { TextButtonLink } from "../Button"
 import { Heading } from "../Heading"
-import { Tag } from "../Tag"
 import { Text } from "../Text"
+import { ITraits, Traits } from "../Traits"
 import {
   Age,
   Container,
@@ -14,19 +14,8 @@ import {
   Top,
   styles as s,
 } from "./styles"
-import {
-  ACTIVITY,
-  ACTIVITY_LABELS,
-  PLACE,
-  PLACE_LABELS,
-  ROUTES,
-  SIZE,
-  SIZE_LABELS,
-  THEME,
-} from "../../constants"
-import { Values } from "../../utils"
-
-const { ADOPTION } = ROUTES
+import { ROUTES } from "../../constants"
+import { getAge } from "../../utils"
 
 interface Props {
   styles?: CSSProp
@@ -34,17 +23,11 @@ interface Props {
   avatar: string
   name: string
   months: number
-  traits: {
-    size: Values<typeof SIZE>
-    place: Values<typeof PLACE>
-    activity: Values<typeof ACTIVITY>
-  }
+  traits: ITraits
   description: string
 }
 
-const {
-  PALETTE: { MALIBU, PINK_SALMON },
-} = THEME
+const { ADOPTION } = ROUTES
 
 export const DogTile: React.FC<Props> = ({
   styles = {},
@@ -55,10 +38,6 @@ export const DogTile: React.FC<Props> = ({
   traits,
   description,
 }) => {
-  const age =
-    months <= 12
-      ? `${months} month/s old`
-      : `${Math.round(months / 12)} year/s old`
   const excerpt = `${description.split(" ").slice(0, 50).join(" ")}...`
 
   return (
@@ -70,14 +49,10 @@ export const DogTile: React.FC<Props> = ({
             <Heading as="h2" css={s.name}>
               {name}
             </Heading>
-            <Age>{age}</Age>
+            <Age>{getAge(months)}</Age>
           </Details>
           <PersonalityTraits>
-            <Tag background={MALIBU}>{SIZE_LABELS[traits.size]}</Tag>
-            <Tag css={s.tag}>{PLACE_LABELS[traits.place]}</Tag>
-            <Tag css={s.tag} background={PINK_SALMON}>
-              {ACTIVITY_LABELS[traits.activity]}
-            </Tag>
+            <Traits traits={traits} />
           </PersonalityTraits>
         </Top>
         <Text css={s.description}>{excerpt}</Text>
