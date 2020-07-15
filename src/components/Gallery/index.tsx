@@ -1,21 +1,22 @@
 import React from "react"
+import Img, { FluidObject } from "gatsby-image"
 import {
   Button,
   Container,
-  CurrentImage,
   Dashboard,
   ImageWrapper,
-  Image,
   Overlay,
+  styles as s,
 } from "./styles"
 
-interface Image {
-  src: string
-  alt: string
-}
-
 interface Props {
-  images: Image[]
+  images: {
+    imageFile: {
+      childImageSharp: {
+        fluid: FluidObject
+      }
+    }
+  }[]
 }
 
 export const Gallery: React.FC<Props> = ({ images }) => {
@@ -78,19 +79,26 @@ export const Gallery: React.FC<Props> = ({ images }) => {
             </Button>
             <Button onClick={() => setOverlayVisibility(false)}>&times;</Button>
           </Dashboard>
-          <CurrentImage
-            src={images[currentImageIndex].src}
-            alt={images[currentImageIndex].alt}
+          <Img
+            fluid={images[currentImageIndex].imageFile.childImageSharp.fluid}
+            style={s.currentImgContainer}
+            imgStyle={s.currentImg}
           />
         </Overlay>
       )}
       <Container>
-        {images.map((image, index) => (
+        {images.map(({ imageFile: { childImageSharp: { fluid } } }, index) => (
           <ImageWrapper
             key={`gallery-image-${index}`}
             onClick={() => handleImageClick(index)}
           >
-            <Image src={image.src} alt={image.alt} />
+            <Img
+              fluid={fluid}
+              sizes={{
+                ...fluid,
+                aspectRatio: 1,
+              }}
+            />
           </ImageWrapper>
         ))}
       </Container>

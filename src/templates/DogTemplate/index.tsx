@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
+import Img, { FluidObject } from "gatsby-image"
 import {
   Body,
   Button,
@@ -13,7 +14,6 @@ import {
 import {
   Age,
   Container,
-  Image,
   ImageWrapper,
   LeftColumn,
   Navigation,
@@ -28,9 +28,7 @@ interface Data {
   strapiDogs: {
     avatar: {
       childImageSharp: {
-        fixed: {
-          src: string
-        }
+        fluid: FluidObject
       }
     }
     name: string
@@ -39,14 +37,10 @@ interface Data {
     place: Values<typeof PLACE>
     activity: Values<typeof ACTIVITY>
     description: string
-    gallery: {
-      formats: {
-        thumbnail: {
-          childImageSharp: {
-            fixed: {
-              src: string
-            }
-          }
+    carousel: {
+      imageFile: {
+        childImageSharp: {
+          fluid: FluidObject
         }
       }
     }[]
@@ -65,10 +59,9 @@ const DogTemplate: React.FC<PageProps<Data>> = ({ data }) => {
       size,
       place,
       activity,
-      gallery,
+      carousel,
     },
   } = data
-  console.log(gallery)
 
   return (
     <Layout>
@@ -81,7 +74,11 @@ const DogTemplate: React.FC<PageProps<Data>> = ({ data }) => {
 
           <LeftColumn>
             <ImageWrapper>
-              <Image src={avatar.childImageSharp.fixed.src} alt={name} />
+              <Img
+                fluid={avatar.childImageSharp.fluid}
+                alt={name}
+                imgStyle={s.avatar}
+              />
             </ImageWrapper>
             <Button css={s.cta}>Adopt me</Button>
           </LeftColumn>
@@ -104,7 +101,7 @@ const DogTemplate: React.FC<PageProps<Data>> = ({ data }) => {
               <Heading as="h3" css={s.sectionHeading}>
                 Gallery
               </Heading>
-              <Gallery images={[]} />
+              <Gallery images={carousel} />
             </Section>
           </RightColumn>
         </Container>
@@ -118,8 +115,8 @@ export const query = graphql`
     strapiDogs(strapiId: { eq: $id }) {
       avatar {
         childImageSharp {
-          fixed(height: 530, width: 530) {
-            src
+          fluid(maxWidth: 345, maxHeight: 345) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -129,13 +126,11 @@ export const query = graphql`
       place
       activity
       description
-      gallery {
-        formats {
-          thumbnail {
-            childImageSharp {
-              fixed {
-                src
-              }
+      carousel {
+        imageFile {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
             }
           }
         }

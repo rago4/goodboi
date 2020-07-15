@@ -54,11 +54,12 @@ export const Details = styled.div`
   display: flex;
 `
 
-export const Image = styled.img`
+export const ImageWrapper = styled.div`
   display: block;
   border-radius: 10px;
   height: auto;
   margin: 0 0 10px 0;
+  overflow: hidden;
   width: 100%;
   z-index: 1;
 

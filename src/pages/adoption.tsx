@@ -1,4 +1,5 @@
 import React from "react"
+import { FluidObject } from "gatsby-image"
 import { graphql, PageProps } from "gatsby"
 import { Body, Button, DogTile, Heading, Select, Layout } from "../components"
 import { List, Toggler, Sidebar, styles as s } from "../pages-styles/adoption"
@@ -10,9 +11,7 @@ interface Dog {
     id: string
     avatar: {
       childImageSharp: {
-        fixed: {
-          src: string
-        }
+        fluid: FluidObject
       }
     }
     strapiId: number
@@ -116,7 +115,7 @@ const Adoption: React.FC<PageProps<Data>> = ({ data }) => {
                   key={id}
                   styles={s.dogTile}
                   id={strapiId}
-                  avatar={avatar.childImageSharp.fixed.src}
+                  avatar={avatar.childImageSharp.fluid}
                   name={name}
                   months={Number(birthdate)}
                   traits={{ size, place, activity }}
@@ -140,8 +139,8 @@ export const query = graphql`
           strapiId
           avatar {
             childImageSharp {
-              fixed(height: 450, width: 450) {
-                src
+              fluid(maxHeight: 450, maxWidth: 450) {
+                ...GatsbyImageSharpFluid
               }
             }
           }

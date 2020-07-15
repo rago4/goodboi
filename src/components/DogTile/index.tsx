@@ -1,4 +1,5 @@
 import React from "react"
+import Img, { FluidObject } from "gatsby-image"
 import { CSSProp } from "styled-components"
 import { TextButtonLink } from "../Button"
 import { Heading } from "../Heading"
@@ -9,7 +10,7 @@ import {
   Container,
   Content,
   Details,
-  Image,
+  ImageWrapper,
   PersonalityTraits,
   Top,
   styles as s,
@@ -20,7 +21,7 @@ import { getAge } from "../../utils"
 interface Props {
   styles?: CSSProp
   id: number
-  avatar: string
+  avatar: FluidObject
   name: string
   months: number
   traits: ITraits
@@ -42,7 +43,9 @@ export const DogTile: React.FC<Props> = ({
 
   return (
     <Container css={styles}>
-      <Image src={avatar} alt={name} />
+      <ImageWrapper>
+        <Img fluid={avatar} />
+      </ImageWrapper>
       <Content>
         <Top>
           <Details>

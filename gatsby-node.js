@@ -1,4 +1,5 @@
 const path = require("path")
+const { createRemoteFileNode } = require("gatsby-source-filesystem")
 
 const makeRequest = (graphql, request) =>
   new Promise((resolve, reject) => {
@@ -43,4 +44,33 @@ exports.createPages = ({ actions, graphql }) => {
   })
 
   return getDogs
+}
+
+// https://github.com/strapi/gatsby-source-strapi/issues/98#issuecomment-582492769
+exports.createResolvers = ({
+  actions,
+  cache,
+  createNodeId,
+  createResolvers,
+  store,
+  reporter,
+}) => {
+  const { createNode } = actions
+  createResolvers({
+    StrapiDogsCarousel: {
+      imageFile: {
+        type: "File",
+        resolve(source) {
+          return createRemoteFileNode({
+            url: `http://localhost:1337${source.url}`,
+            store,
+            cache,
+            createNode,
+            createNodeId,
+            reporter,
+          })
+        },
+      },
+    },
+  })
 }

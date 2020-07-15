@@ -64,15 +64,6 @@ export const ImageWrapper = styled.div`
   }
 `
 
-export const Image = styled.img`
-  border-radius: 10px;
-  display: block;
-  height: auto;
-  position: relative;
-  width: 100%;
-  z-index: 1;
-`
-
 export const RightColumn = styled.div`
   grid-column: 2/-2;
 
@@ -110,6 +101,9 @@ export const styles = {
       padding: 35px 0;
     }
   `,
+  avatar: {
+    borderRadius: "10px",
+  },
   cta: css`
     position: relative;
     width: 100%;

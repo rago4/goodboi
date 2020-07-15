@@ -12,4 +12,5 @@ export const Tag = styled.span<{ background?: string }>`
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.MEDIUM};
   text-transform: lowercase;
   padding: 1px 8px;
+  white-space: nowrap;
 `

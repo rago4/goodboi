@@ -14,6 +14,7 @@ export const Dashboard = styled.div`
   display: flex;
   position: absolute;
   right: 0;
+  z-index: 1;
 `
 
 export const Button = styled.button`
@@ -35,17 +36,6 @@ export const Button = styled.button`
   }
 `
 
-export const CurrentImage = styled.img`
-  height: auto;
-  left: 50%;
-  max-height: calc(100% - 40px);
-  max-width: calc(100% - 40px);
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: auto;
-`
-
 export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -56,22 +46,22 @@ export const ImageWrapper = styled.div`
   background-color: ${({ theme }) => theme.PALETTE.BLACK}50;
   border-radius: 10px;
   cursor: pointer;
-  display: grid;
   overflow: hidden;
-
-  &::before {
-    box-sizing: border-box;
-    content: "";
-    display: block;
-    grid-area: 1 / 1 / 2 / 2;
-    padding-bottom: 100%;
-  }
 `
 
-export const Image = styled.img`
-  display: block;
-  grid-area: 1 / 1 / 2 / 2;
-  height: 100%;
-  object-fit: contain;
-  width: 100%;
-`
+export const styles = {
+  currentImgContainer: {
+    height: "100%",
+    position: "relative",
+  },
+  currentImg: {
+    height: "auto",
+    left: "50%",
+    maxHeight: "calc(100% - 40px)",
+    maxWidth: "calc(100% - 40px)",
+    position: "absolute",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "auto",
+  },
+}
