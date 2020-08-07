@@ -1,5 +1,5 @@
 import React from "react"
-import Img, { FluidObject } from "gatsby-image"
+import Img from "gatsby-image"
 import {
   Button,
   Container,
@@ -8,15 +8,10 @@ import {
   Overlay,
   styles as s,
 } from "./styles"
+import { FluidImage } from "../../utils"
 
 interface Props {
-  images: {
-    imageFile: {
-      childImageSharp: {
-        fluid: FluidObject
-      }
-    }
-  }[]
+  images: FluidImage[]
 }
 
 export const Gallery: React.FC<Props> = ({ images }) => {

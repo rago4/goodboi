@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
-import Img, { FluidObject } from "gatsby-image"
+import Img from "gatsby-image"
 import {
   Body,
   Button,
@@ -22,28 +22,20 @@ import {
   styles as s,
 } from "./styles"
 import { ROUTES, SIZE, PLACE, ACTIVITY } from "../../constants"
-import { getAge, Values } from "../../utils"
+import { getAge, Values, FluidImage } from "../../utils"
 
 interface Data {
-  strapiDogs: {
-    avatar: {
-      childImageSharp: {
-        fluid: FluidObject
-      }
+  strapi: {
+    dog: {
+      name: string
+      birthdate: string
+      size: Values<typeof SIZE>
+      place: Values<typeof PLACE>
+      activity: Values<typeof ACTIVITY>
+      description: string
+      avatar: FluidImage
+      carousel: FluidImage[]
     }
-    name: string
-    birthdate: string
-    size: Values<typeof SIZE>
-    place: Values<typeof PLACE>
-    activity: Values<typeof ACTIVITY>
-    description: string
-    carousel: {
-      imageFile: {
-        childImageSharp: {
-          fluid: FluidObject
-        }
-      }
-    }[]
   }
 }
 
@@ -51,15 +43,17 @@ const { ADOPTION } = ROUTES
 
 const DogTemplate: React.FC<PageProps<Data>> = ({ data }) => {
   const {
-    strapiDogs: {
-      avatar,
-      name,
-      birthdate: months,
-      description,
-      size,
-      place,
-      activity,
-      carousel,
+    strapi: {
+      dog: {
+        name,
+        birthdate,
+        size,
+        place,
+        activity,
+        description,
+        avatar,
+        carousel,
+      },
     },
   } = data
 
@@ -75,7 +69,7 @@ const DogTemplate: React.FC<PageProps<Data>> = ({ data }) => {
           <LeftColumn>
             <ImageWrapper>
               <Img
-                fluid={avatar.childImageSharp.fluid}
+                fluid={avatar.imageFile.childImageSharp.fluid}
                 alt={name}
                 imgStyle={s.avatar}
               />
@@ -87,7 +81,7 @@ const DogTemplate: React.FC<PageProps<Data>> = ({ data }) => {
             <Heading as="h2" css={s.name}>
               Hello, my name is {name}
             </Heading>
-            <Age>I am about {getAge(Number(months))}</Age>
+            <Age>I am about {getAge(new Date(birthdate))}</Age>
             <div>
               <Traits traits={{ size, place, activity }} />
             </div>
@@ -111,26 +105,32 @@ const DogTemplate: React.FC<PageProps<Data>> = ({ data }) => {
 }
 
 export const query = graphql`
-  query DogTemplate($id: Int!) {
-    strapiDogs(strapiId: { eq: $id }) {
-      avatar {
-        childImageSharp {
-          fluid(maxWidth: 345, maxHeight: 345) {
-            ...GatsbyImageSharpFluid
+  query DogTemplate($id: ID!) {
+    strapi {
+      dog(id: $id) {
+        name
+        birthdate
+        size
+        place
+        activity
+        description
+        avatar {
+          url
+          imageFile {
+            childImageSharp {
+              fluid(maxHeight: 450, maxWidth: 450) {
+                ...GatsbyImageSharpFluid
+              }
+            }
           }
         }
-      }
-      name
-      birthdate(difference: "months")
-      size
-      place
-      activity
-      description
-      carousel {
-        imageFile {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid
+        carousel {
+          url
+          imageFile {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
             }
           }
         }

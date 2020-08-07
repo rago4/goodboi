@@ -20,10 +20,10 @@ import { getAge } from "../../utils"
 
 interface Props {
   styles?: CSSProp
-  id: number
+  id: string
   avatar: FluidObject
   name: string
-  months: number
+  birthdate: Date
   traits: ITraits
   description: string
 }
@@ -35,7 +35,7 @@ export const DogTile: React.FC<Props> = ({
   id,
   avatar,
   name,
-  months,
+  birthdate,
   traits,
   description,
 }) => {
@@ -52,7 +52,7 @@ export const DogTile: React.FC<Props> = ({
             <Heading as="h2" css={s.name}>
               {name}
             </Heading>
-            <Age>{getAge(months)}</Age>
+            <Age>{getAge(birthdate)}</Age>
           </Details>
           <PersonalityTraits>
             <Traits traits={traits} />

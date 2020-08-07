@@ -21,18 +21,16 @@ exports.createPages = ({ actions, graphql }) => {
     graphql,
     `
     {
-      allStrapiDogs {
-        edges {
-          node {
-            strapiId
-          }
+      strapi {
+        dogs {
+          id
         }
       }
     }
     
   `
   ).then(result => {
-    result.data.allStrapiDogs.edges.forEach(({ node: { strapiId: id } }) => {
+    result.data.strapi.dogs.forEach(({ id }) => {
       createPage({
         path: `adoption/${id}`,
         component: path.resolve("src/templates/DogTemplate/index.tsx"),
@@ -46,8 +44,8 @@ exports.createPages = ({ actions, graphql }) => {
   return getDogs
 }
 
-// https://github.com/strapi/gatsby-source-strapi/issues/98#issuecomment-582492769
-exports.createResolvers = ({
+// https://dev.to/nevernull/gatsby-with-wpgraphql-acf-and-gatbsy-image-72m
+exports.createResolvers = async ({
   actions,
   cache,
   createNodeId,
@@ -56,12 +54,13 @@ exports.createResolvers = ({
   reporter,
 }) => {
   const { createNode } = actions
-  createResolvers({
-    StrapiDogsCarousel: {
+
+  await createResolvers({
+    STRAPI_UploadFile: {
       imageFile: {
         type: "File",
-        resolve(source) {
-          return createRemoteFileNode({
+        async resolve(source) {
+          return await createRemoteFileNode({
             url: `http://localhost:1337${source.url}`,
             store,
             cache,

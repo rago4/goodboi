@@ -1,48 +1,40 @@
 import React from "react"
-import { FluidObject } from "gatsby-image"
 import { graphql, PageProps } from "gatsby"
 import { Body, Button, DogTile, Heading, Select, Layout } from "../components"
 import { List, Toggler, Sidebar, styles as s } from "../pages-styles/adoption"
 import { ACTIVITY, PLACE, SIZE } from "../constants"
-import { getKey, Values } from "../utils"
+import { getKey, Values, FluidImage } from "../utils"
 
 interface Dog {
-  node: {
-    id: string
-    avatar: {
-      childImageSharp: {
-        fluid: FluidObject
-      }
-    }
-    strapiId: number
-    name: string
-    birthdate: string
-    size: Values<typeof SIZE>
-    place: Values<typeof PLACE>
-    activity: Values<typeof ACTIVITY>
-    description: string
-  }
+  id: string
+  name: string
+  place: Values<typeof PLACE>
+  size: Values<typeof SIZE>
+  activity: Values<typeof ACTIVITY>
+  birthdate: string
+  description: string
+  avatar: FluidImage
 }
 
 interface Data {
-  allStrapiDogs: {
-    edges: Dog[]
+  strapi: {
+    dogs: Dog[]
   }
 }
 
 const Adoption: React.FC<PageProps<Data>> = ({ data }) => {
   const {
-    allStrapiDogs: { edges },
+    strapi: { dogs },
   } = data
 
-  const [currentData, setCurrentData] = React.useState<Dog[]>(edges)
+  const [currentData, setCurrentData] = React.useState<Dog[]>(dogs)
   const [isSidebarOpen, setSidebarOpen] = React.useState(false)
   const [size, setSize] = React.useState("")
   const [place, setPlace] = React.useState("")
   const [activity, setActivity] = React.useState("")
 
   const handleFiltersSubmit = () => {
-    const filtered = edges.filter(({ node }) => {
+    const filtered = dogs.filter(node => {
       return [
         !size.length || getKey(size) === node.size,
         !place.length || getKey(place) === node.place,
@@ -97,32 +89,22 @@ const Adoption: React.FC<PageProps<Data>> = ({ data }) => {
               No matching items found
             </Heading>
           ) : (
-            currentData.map(
-              ({
-                node: {
-                  id,
-                  strapiId,
-                  avatar,
-                  name,
-                  birthdate,
-                  size,
-                  place,
-                  activity,
-                  description,
-                },
-              }) => (
-                <DogTile
-                  key={id}
-                  styles={s.dogTile}
-                  id={strapiId}
-                  avatar={avatar.childImageSharp.fluid}
-                  name={name}
-                  months={Number(birthdate)}
-                  traits={{ size, place, activity }}
-                  description={description}
-                />
-              )
-            )
+            currentData.map(data => (
+              <DogTile
+                key={data.id}
+                styles={s.dogTile}
+                id={data.id}
+                avatar={data.avatar.imageFile.childImageSharp.fluid}
+                name={data.name}
+                birthdate={new Date(data.birthdate)}
+                traits={{
+                  size: data.size,
+                  place: data.place,
+                  activity: data.activity,
+                }}
+                description={data.description}
+              />
+            ))
           )}
         </List>
       </Body>
@@ -131,25 +113,25 @@ const Adoption: React.FC<PageProps<Data>> = ({ data }) => {
 }
 
 export const query = graphql`
-  query dogs {
-    allStrapiDogs {
-      edges {
-        node {
-          id
-          strapiId
-          avatar {
+  query {
+    strapi {
+      dogs {
+        id
+        name
+        place
+        size
+        activity
+        birthdate
+        description
+        avatar {
+          url
+          imageFile {
             childImageSharp {
               fluid(maxHeight: 450, maxWidth: 450) {
                 ...GatsbyImageSharpFluid
               }
             }
           }
-          name
-          birthdate(difference: "months")
-          size
-          place
-          activity
-          description
         }
       }
     }
