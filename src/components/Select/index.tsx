@@ -31,24 +31,30 @@ export const Select: React.FC<Props> = ({
 
   return (
     <Container isOpen={isOpen} ref={containerRef} css={styles}>
-      <Label>{label}</Label>
+      <Label data-testid="select.label">{label}</Label>
       <Input
         readOnly
         isOpen={isOpen}
         placeholder={placeholder}
         onClick={() => setOpen(true)}
         value={selected}
+        data-testid="select.input"
       />
       {isOpen && (
-        <Dropdown>
+        <Dropdown data-testid="select.dropdown">
           <li>
-            <Option onClick={() => handleSelect("")} isEmpty>
+            <Option
+              data-testid="select.option"
+              onClick={() => handleSelect("")}
+              isEmpty
+            >
               Select
             </Option>
           </li>
           {items.map(item => (
             <li key={item}>
               <Option
+                data-testid="select.option"
                 onClick={() => handleSelect(item)}
                 isSelected={selected === item}
               >
