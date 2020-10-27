@@ -49,10 +49,14 @@ export const ImageWrapper = styled.div`
   overflow: hidden;
 `
 
+export const SelectedImage = styled.div`
+  height: 100%;
+  position: relative;
+`
+
 export const styles = {
-  currentImgContainer: {
-    height: "100%",
-    position: "relative",
+  currentImgWrapper: {
+    position: "static",
   },
   currentImg: {
     height: "auto",

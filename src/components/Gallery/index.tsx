@@ -6,6 +6,7 @@ import {
   Dashboard,
   ImageWrapper,
   Overlay,
+  SelectedImage,
   styles as s,
 } from "./styles"
 import { FluidImage } from "../../utils"
@@ -58,33 +59,43 @@ export const Gallery: React.FC<Props> = ({ images }) => {
   return (
     <>
       {isOverlayVisible && (
-        <Overlay>
+        <Overlay data-testid="gallery.overlay">
           <Dashboard>
             <Button
+              data-testid="gallery.button-previous"
               onClick={handlePreviousClick}
               disabled={currentImageIndex === 0}
             >
               &lt;
             </Button>
             <Button
+              data-testid="gallery.button-next"
               onClick={handleNextClick}
               disabled={currentImageIndex === images.length - 1}
             >
               &gt;
             </Button>
-            <Button onClick={() => setOverlayVisibility(false)}>&times;</Button>
+            <Button
+              data-testid="gallery.button-close"
+              onClick={() => setOverlayVisibility(false)}
+            >
+              &times;
+            </Button>
           </Dashboard>
-          <Img
-            fluid={images[currentImageIndex].imageFile.childImageSharp.fluid}
-            style={s.currentImgContainer}
-            imgStyle={s.currentImg}
-          />
+          <SelectedImage data-testid="gallery.selected-image">
+            <Img
+              fluid={images[currentImageIndex].imageFile.childImageSharp.fluid}
+              style={s.currentImgWrapper}
+              imgStyle={s.currentImg}
+            />
+          </SelectedImage>
         </Overlay>
       )}
       <Container>
         {images.map(({ imageFile: { childImageSharp: { fluid } } }, index) => (
           <ImageWrapper
             key={`gallery-image-${index}`}
+            data-testid="gallery.image-wrapper"
             onClick={() => handleImageClick(index)}
           >
             <Img

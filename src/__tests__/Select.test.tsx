@@ -54,6 +54,4 @@ describe("Select", () => {
 
     expect(getByTestId(testIds.input)).toHaveValue("Apples")
   })
-
-  // TODO: add test cases for item click
 })
