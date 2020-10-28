@@ -73,5 +73,22 @@ describe("Gallery", () => {
     expect(selectedImage).not.toBeInTheDocument()
   })
 
-  // TODO: test keyboard navigation
+  it("should properly handle keyboard navigation", () => {
+    const { getAllByTestId, getByTestId } = render(<Gallery {...props} />)
+    const wrappers = getAllByTestId(testIds.imageWrapper)
+    fireEvent.click(wrappers[0])
+    const selectedImage = getByTestId(testIds.selectedImage)
+    const img = selectedImage.querySelector("img")
+
+    expect(img).toHaveAttribute("src", "/path/to/image1.jpg")
+
+    fireEvent.keyDown(document, { key: "ArrowRight" })
+    expect(img).toHaveAttribute("src", "/path/to/image2.jpg")
+
+    fireEvent.keyDown(document, { key: "ArrowLeft" })
+    expect(img).toHaveAttribute("src", "/path/to/image1.jpg")
+
+    fireEvent.keyDown(document, { key: "Escape" })
+    expect(selectedImage).not.toBeInTheDocument()
+  })
 })
