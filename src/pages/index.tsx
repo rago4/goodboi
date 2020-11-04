@@ -20,10 +20,12 @@ const Index: React.FC = () => {
           <Navigation>
             <Heading>goodboi</Heading>
             <div>
-              <NavLink to={HOME} css={s.navLink}>
+              <NavLink to={HOME} css={s.navLink} data-testid="home.nav-link">
                 Home
               </NavLink>
-              <NavLink to={ADOPTION}>Adoption</NavLink>
+              <NavLink to={ADOPTION} data-testid="home.nav-link">
+                Adoption
+              </NavLink>
             </div>
           </Navigation>
 

@@ -38,5 +38,13 @@ module.exports = {
         "@typescript-eslint/no-var-requires": "off",
       },
     },
+    {
+      files: ["cypress/**/*.js"],
+      plugins: ["cypress"],
+      env: {
+        "cypress/globals": true,
+      },
+      extends: ["plugin:cypress/recommended"],
+    },
   ],
 }
